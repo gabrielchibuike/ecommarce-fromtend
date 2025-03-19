@@ -1,0 +1,533 @@
+"use client";
+import { useForm } from "react-hook-form";
+type CustomInputType = {
+  label?: string;
+  addtional_class?: string;
+  err_msg?: React.ReactNode;
+  placeholder?: string;
+  input_type: string;
+  icon?: JSX.Element;
+  value?: string | number;
+  name: string;
+  inputRef?: React.RefObject<HTMLInputElement>;
+  onchange_event?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  hook_Form: any ;
+};
+function CustomInput({
+  label,
+  addtional_class,
+  // err_msg,
+  input_type,
+  name,
+  value,
+  onchange_event,
+  placeholder,
+  inputRef,
+  hook_Form,
+}: CustomInputType) {
+  interface InputsTypes {
+    productName: "";
+    productCategory: "";
+    subCategory: "";
+    manufacturarBrand: "";
+    description: "";
+    color: "";
+    size: "";
+    stockQuantity: "";
+    price: "";
+    discount: "";
+  }
+  const {register} = useForm<InputsTypes>()
+  return (
+    <div className="relative w-full flex flex-col ">
+      <label className="text-xs  py-1 text-zinc-800 font-bold">{label}</label>
+      <input
+        type={input_type}
+        placeholder={placeholder}
+        name={name}
+        value={value}
+        ref={inputRef}
+        onChange={onchange_event}
+        className={`w-full py-3  px-3  text-xs focus:outline-none  font-semibold rounded-lg border border-zinc-600/20   ${addtional_class}`}
+        {...register('productName')}
+      />
+      {/* <span className="absolute right-5 text-gray-500">👤</span> */}
+    </div>
+  );
+}
+
+export default CustomInput;
+
+
+
+
+
+
+
+---------------------------------------------------
+----------------- ADD PRODUCT ---------------------
+---------------------------------------------------
+
+"use client";
+import { AiOutlineClose } from "react-icons/ai";
+import AdminNavBar from "@/app/Components/AdminNavBar";
+import AdminSideNav from "@/app/Components/AdminSideNav";
+import Button from "@/app/Components/Button";
+import CustomInput from "@/app/Components/CustomInput";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/app/Components/CustomSelect";
+import { Check, ChevronDown } from "lucide-react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import { AiOutlineCamera } from "react-icons/ai";
+import { IoIosArrowBack } from "react-icons/io";
+import { domain } from "@/api/client";
+import useCustomRouter from "@/app/hooks/useCustomRouter";
+import { useDispatch } from "react-redux";
+import { productPayload } from "@/app/GlobalState/store";
+type params = {
+  params: {
+    addProduct: string;
+  };
+};
+interface InputsTypes {
+  productName: "";
+  productCategory: "";
+  subCategory: "";
+  manufacturarBrand: "";
+  description: "";
+  color: "";
+  size: "";
+  stockQuantity: "";
+  price: "";
+  discount: "";
+}
+
+function page({ params: { addProduct } }: params) {
+  const [subCategory, setSubCategory] = React.useState("");
+
+  const { navigateTo } = useCustomRouter();
+  const styleInput = useRef<HTMLInputElement>(null);
+
+  const [selectedFile, setSelectedFile] = useState<FileList | null>(null);
+
+  const [product_category, setProduct_category] = React.useState<string>("");
+
+  const [color, setColor] = React.useState<string[]>([]);
+
+  const [size, setSize] = React.useState<string[]>([]);
+
+  const [status, setStatus] = React.useState<string>("");
+
+  const [Records, setRecords] = useState({});
+
+  const dispatch = useDispatch();
+
+  const productCategory = [
+    { value: "Men's wear", label: "Men's wear" },
+    { value: "Women's wear", label: "Women's wear" },
+    { value: "others", label: "others" },
+  ];
+
+  const Colors = [
+    { value: "Blue", label: "Blue" },
+    { value: "Red", label: "Red" },
+    { value: "Green", label: "Green" },
+    { value: "Black", label: "Black" },
+    { value: "browm", label: "browm" },
+    { value: "others", label: "others" },
+  ];
+
+  const Sizes = [
+    { value: "xs", label: "xs" },
+    { value: "sm", label: "sm" },
+    { value: "lg", label: "lg" },
+    { value: "xl", label: "xl" },
+  ];
+
+  const Status = [
+    { value: "Avaliable", label: "Avaliable" },
+    { value: "Out Of Stock", label: "Out of Stock" },
+  ];
+
+  const [Inputs, setInputs] = useState({
+    productName: "",
+    productCategory: "",
+    subCategory: "",
+    manufacturarBrand: "",
+    description: "",
+    color: "",
+    size: "",
+    stockQuantity: "",
+    price: "",
+    discount: "",
+  });
+
+  function handleInputs(
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setInputs({ ...Inputs, [name]: value });
+  }
+
+  // const validateFields = {
+  //   organization: Inputs.organization,
+  //   eventTitle: Inputs.eventTitle,
+  //   description: Inputs.description,
+  //   location: Inputs.location,
+  //   eventDate: Inputs.eventDate,
+  //   startTime: Inputs.startTime,
+  //   endTime: Inputs.endTime,
+  // };
+
+  function removeSeletedItem(item: string, role: string) {
+    if (role === "color") {
+      setColor(color.filter((ele) => ele !== item));
+    }
+    setSize(size.filter((ele) => ele !== item));
+  }
+
+  async function handleSubmit() {
+    const data = {
+      product_name: Inputs.productName,
+      product_category: product_category,
+      sub_category: Inputs.subCategory,
+      manufacturer_brand: Inputs.manufacturarBrand,
+      description: Inputs.description,
+      color: color,
+      size: size,
+      status: status,
+      quantity: Inputs.stockQuantity,
+      price: Inputs.price,
+      discount: Inputs.discount,
+    };
+
+    const formData = new FormData();
+    formData.append("jsonData", JSON.stringify(data));
+
+    Array.from(selectedFile!).map((file) => {
+      formData.append("files", file);
+    });
+
+    if (selectedFile!.length === 0) return console.log("Field cannot be empty");
+
+    console.log(selectedFile);
+
+    const request = await fetch(
+      `${domain}/api/admin/products/create_products`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+    if (request.ok) {
+      const result = await request.json();
+      dispatch(productPayload({ productPayload: [...result] }));
+      // console.log(result);
+    } else {
+      console.log("something went wrong");
+    }
+  }
+  return (
+    <>
+      <div className="flex">
+        <AdminSideNav link={"/admin/product"} />
+        <div className="w-full h-screen bg-zinc-200/40 px-3 max-lg:px-2 py-2">
+          <div
+            className="flex gap-1 font-bold items-center text-yellow-600 text-base cursor-pointer"
+            onClick={() => navigateTo("/admin/product")}
+          >
+            <IoIosArrowBack />
+            <span className=" text-sm">Back</span>
+          </div>
+          <AdminNavBar Title="Add Products" />
+
+          <div>
+            <div className="px-5 max-lg:px-0 py-1 ">
+              <div className=" bg-white px-6 max-lg:px-2  py-3  overflow-y-scroll space-y-7  flex-1 ">
+                <div className="flex gap-4 max-lg:flex-col">
+                  <div className="w-full space-y-4">
+                    <div className="flex gap-5 max-lg:flex-col">
+                      <div className="w-full">
+                        <CustomInput
+                          addtional_class="!bg-zinc-200/40"
+                          name="productName"
+                          input_type="text"
+                          placeholder="Product Name"
+                          label="Product Name"
+                          onchange_event={handleInputs}
+                          value={Inputs.productName}
+                        />
+                      </div>
+                      <div className="w-full">
+                        <div className="text-xs py-1 text-zinc-800 font-bold">
+                          Product Category
+                        </div>
+                        <Select
+                          onValueChange={(value) => {
+                            setProduct_category(value);
+                          }}
+                        >
+                          <SelectTrigger className="w-full border border-zinc-600/20 bg-zinc-200/40 font-semibold py-5  px-3  text-xs !text-zinc-500 ">
+                            <SelectValue placeholder="Add category" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-zinc-50 ">
+                            {productCategory.map((option) => (
+                              <SelectItem
+                                key={option.value}
+                                value={option.value}
+                                className="text-zinc-500 cursor-pointer"
+                              >
+                                {option.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-5 max-lg:flex-col">
+                      <div className="w-full">
+                        <CustomInput
+                          addtional_class="!bg-zinc-200/40"
+                          name="subCategory"
+                          input_type="text"
+                          placeholder="Sub category"
+                          label="Sub Category"
+                          onchange_event={handleInputs}
+                          value={Inputs.subCategory}
+                        />
+                      </div>
+                      <div className="w-full">
+                        <CustomInput
+                          addtional_class=" !bg-zinc-200/40"
+                          name="manufacturarBrand"
+                          input_type="text"
+                          placeholder="Manufacturer Brand"
+                          label="Manufacturer Brand"
+                          onchange_event={handleInputs}
+                          value={Inputs.manufacturarBrand}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="w-full">
+                      <label className="text-xs py-1 font-bold">
+                        {"Description"}
+                      </label>
+                      <textarea
+                        className="w-full py-3  px-3  text-xs focus:outline-none  font-semibold rounded-lg border border-zinc-600/20 bg-zinc-200/40"
+                        onChange={handleInputs}
+                        value={Inputs.description}
+                        name="description"
+                      ></textarea>
+                    </div>
+                    <div className="flex gap-5 max-lg:flex-col">
+                      <div className="w-full">
+                        <div className="text-xs py-1 text-zinc-800 font-bold">
+                          Colors
+                        </div>
+                        <Select
+                          onValueChange={(value) => {
+                            setColor((prev) => {
+                              return [...prev, value];
+                            });
+                          }}
+                        >
+                          <SelectTrigger className="w-full border border-zinc-600/20 bg-zinc-200/40 font-semibold py-5  px-3  text-xs !text-zinc-500">
+                            <SelectValue placeholder="Add color" className="" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-zinc-50 text-zinc-500">
+                            {Colors.map((option) => (
+                              <SelectItem
+                                key={option.value}
+                                value={option.value}
+                                className="cursor-pointer"
+                              >
+                                {option.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <div className="flex gap-2">
+                          {color.map((ele, i) => (
+                            <div
+                              className="w-fit  mt-3 px-1 py-[2px] flex gap-1 cursor-pointer items-center rounded-xl bg-yellow-600 text-white font-medium text-xs"
+                              key={i}
+                            >
+                              {ele}
+                              <div
+                                onClick={() => removeSeletedItem(ele, "color")}
+                              >
+                                <AiOutlineClose />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="w-full">
+                        <div className="text-xs py-1 text-zinc-800 font-bold">
+                          Sizes
+                        </div>
+                        <Select
+                          onValueChange={(value) => {
+                            setSize((prev) => {
+                              return [...prev, value];
+                            });
+                          }}
+                        >
+                          <SelectTrigger className="w-full border border-zinc-600/20 bg-zinc-200/40 font-semibold py-5  px-3  text-xs text-zinc-500">
+                            <SelectValue placeholder="Select Sizes" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-zinc-50 ">
+                            {Sizes.map((option) => (
+                              <SelectItem
+                                key={option.value}
+                                value={option.value}
+                                className="text-zinc-500 cursor-pointer"
+                              >
+                                {option.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <div className="flex gap-2">
+                          {size.map((ele, i) => (
+                            <div
+                              className="w-fit  mt-3 px-1 py-[2px] flex gap-1 cursor-pointer items-center rounded-xl bg-yellow-600 text-white font-medium text-xs"
+                              key={i}
+                            >
+                              {ele}
+                              <div onClick={() => removeSeletedItem(ele, "")}>
+                                <AiOutlineClose />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex gap-5 max-lg:flex-col">
+                      <div className="w-full">
+                        <CustomInput
+                          addtional_class="!bg-zinc-200/40"
+                          name="stockQuantity"
+                          input_type="text"
+                          placeholder="Stock Quantity"
+                          label="Stock Quantity"
+                          onchange_event={handleInputs}
+                          value={Inputs.stockQuantity}
+                        />
+                      </div>
+                      <div className="w-full">
+                        <div className="text-xs py-1 text-zinc-800 font-bold">
+                          Status
+                        </div>
+                        <Select
+                          onValueChange={(value) => {
+                            setStatus(value);
+                          }}
+                        >
+                          <SelectTrigger className="w-full border border-zinc-600/20 bg-zinc-200/40 font-semibold py-5  px-3  text-xs text-zinc-500">
+                            <SelectValue placeholder="Select status" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-zinc-50 ">
+                            {Status.map((option) => (
+                              <SelectItem
+                                key={option.value}
+                                value={option.value}
+                                className="text-zinc-500 cursor-pointer"
+                              >
+                                {option.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    <div className="flex gap-5 max-lg:flex-col">
+                      <div className="w-full">
+                        <CustomInput
+                          addtional_class=" !bg-zinc-200/40"
+                          name="price"
+                          input_type="text"
+                          placeholder="Price"
+                          label="Price"
+                          onchange_event={handleInputs}
+                          value={Inputs.price}
+                        />
+                      </div>
+                      <div className="w-full">
+                        <CustomInput
+                          addtional_class="!bg-zinc-200/40"
+                          name="discount"
+                          input_type="text"
+                          placeholder="Discount"
+                          label="Discount"
+                          onchange_event={handleInputs}
+                          value={Inputs.discount}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="w-[50%] max-lg:w-full text-zinc-800">
+                    <h1 className="text-xs py-1  font-bold">
+                      Select Product Image
+                    </h1>
+                    <div className="w-full h-[300px] bg-zinc-200/40 p-3 flex justify-center item-center ">
+                      <div className="flex gap-2 items-center cursor-pointer">
+                        <input
+                          type="file"
+                          multiple
+                          className="hidden"
+                          ref={styleInput}
+                          onChange={async (
+                            e: ChangeEvent<HTMLInputElement>
+                          ) => {
+                            setSelectedFile(e.target.files!);
+                          }}
+                        />
+                        <AiOutlineCamera />
+                        <div
+                          className=" text-xs py-1  font-bold"
+                          onClick={() => {
+                            styleInput.current?.click();
+                          }}
+                        >
+                          Select Image
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex gap-2 py-3">
+                      <div className="w-[85px] h-14 bg-zinc-200/40"></div>
+                      <div className="w-[85px] h-14 bg-zinc-200/40"></div>
+                      <div className="w-[85px] h-14 bg-zinc-200/40"></div>
+                      <div className="w-[85px] h-14 bg-zinc-200/40"></div>
+                    </div>
+                    <div className="flex justify-end gap-3 mt-10">
+                      <Button
+                        btn_text={"Reset"}
+                        addtional_class="!w-[70px] !text-yellow-600 !h-[35px] text-xs !p-2 !rounded-md !bg-zinc-300/50"
+                      />
+                      <Button
+                        btn_text={"Submit"}
+                        addtional_class="!w-[80px] !h-[35px] text-xs !p-2 !rounded-md"
+                        onclick_event={handleSubmit}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default page;
+

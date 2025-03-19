@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* .background {
+  @apply bg-white dark:bg-gradient-to-tr dark:to-[#340f35] dark:from-[#000000] text-zinc-950 dark:text-white;
+}  */
+.background {
+  @apply bg-zinc-100/50 dark:bg-[#0a0b0e] text-zinc-950 dark:text-white;
+}
+.surface {
+  @apply bg-[#ffffffcc] dark:bg-gray-900/50;
+}
+
+.onsurface {
+  @apply bg-zinc-100/50 dark:bg-gray-900/50;
+}
+
+.cardsurface {
+  @apply bg-zinc-100 dark:bg-gray-900/50;
+}
+
+.surface-text {
+  @apply text-zinc-400 dark:text-zinc-400;
+}
+.surface-border {
+  @apply border-[#6e706f]/50;
+}
+.primary {
+  @apply bg-[#F02E65];
+}
+
+.primary-text {
+  @apply text-[#F02E65];
+}
+.primary-border {
+  @apply border-[#F02E65] border;
+}
+
+.hover {
+  @apply hover:bg-zinc-100 dark:hover:bg-zinc-100/10 text-zinc-300;
+}
+
+.styles {
+  animation: animate 0.4s linear forwards;
+}
+
+@keyframes animate {
+  from {
+    color: white;
+  }
+  to {
+    color: white;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 0;
+  background-color: transparent;
+}
+
+/* @layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+} */
