@@ -7,17 +7,29 @@ const EmblaCarousel: React.FC = () => {
 
   const slides = [
     {
-      src: "/fashion.png",
+      src: "/cloth.png",
       alt: "Image 1",
     },
+    {
+      src: "/enhanced_hero_image.png",
+      alt: "Image 2",
+    },
     // {
-    //   src: "https://res.cloudinary.com/dcsdg29se/image/upload/v1739591911/GabbySoft/Ecommerce%20store/Static%20Images/jbfxi1jncue6gyfvlh7v.webp",
-    //   alt: "Image 2",
-    // },
-    // {
-    //   src: "http://res.cloudinary.com/dcsdg29se/image/upload/v1739591911/GabbySoft/Ecommerce%20store/Static%20Images/z4nv5ki2ssnlglvzmwtz.webp",
+    //   src: "/img1.png",
     //   alt: "Image 3",
     // },
+    // {
+    //   src: "/img3.png",
+    //   alt: "Image 3",
+    // },
+    {
+      src: "/img4.png",
+      alt: "Image 3",
+    },
+    {
+      src: "/img5.png",
+      alt: "Image 3",
+    },
   ];
 
   // Auto-play effect
@@ -28,7 +40,7 @@ const EmblaCarousel: React.FC = () => {
       emblaApi.scrollNext();
     };
 
-    const interval = setInterval(autoplay, 3000); // Change slide every 3 seconds
+    const interval = setInterval(autoplay, 7000); // Change slide every 3 seconds
 
     return () => clearInterval(interval); // Cleanup on unmount
   }, [emblaApi]);
@@ -48,7 +60,7 @@ const EmblaCarousel: React.FC = () => {
                 width={500}
                 height={500}
                 alt={slide.alt}
-                className="w-full h-[500px]  max-lg:h-[200px]"
+                className="w-full h-auto max-lg:object-cover crisp-edges"
               />
             </div>
           ))}

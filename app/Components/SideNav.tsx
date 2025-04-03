@@ -51,7 +51,7 @@ function SideNav() {
     <>
       <section className="w-full">
         <div
-          className="w-full  fixed bg-white top-0 left-0  transition translate-x-full ease-linear hidden  text-black h-full z-50  lg:hidden p-3"
+          className="w-full  fixed bg-white top-0 left-0  transition translate-x-full ease-linear hidden  text-black h-full z-50  xl:hidden p-3"
           ref={toggleSideNav}
         >
           <div className="flex justify-between">

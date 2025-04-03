@@ -80,7 +80,8 @@ function CustomTable({ products }: { products: any }) {
                   <td className="px-6 py-4 text-sm text-zinc-800/80 flex gap-2 items-center">
                     <div className="w-10 h-10 rounded-lg bg-zinc-500">
                       <Image
-                        src={`${domain}/${product.product_image[0]}`}
+                        src={product.product_image[0]}
+                        // src={`${domain}/${product.product_image[0]}`}
                         width={200}
                         height={200}
                         className="object-cover w-10 h-10 "

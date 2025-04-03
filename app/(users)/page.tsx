@@ -6,9 +6,11 @@ import NavBar from "../Components/NavBar";
 import SideNav from "../Components/SideNav";
 // import Categories from "./Categories";
 import FeaturedProducts from "./FeaturedProducts";
-import { useEffect } from "react";
-import { tokenPayload } from "../GlobalState/store";
 import ItemCategories from "../Components/ItemCategories";
+import BestSelling from "../Components/BestSelling";
+import DealOfTheDay from "../Components/DealOfTheDay";
+import LatestCollection from "../Components/LatestCollection";
+import Tesitimonial from "../Components/Tesitimonial";
 // import PaystackPop from "@paystack/inline-js";
 
 export default function Home() {
@@ -16,11 +18,12 @@ export default function Home() {
     <>
       <NavBar />
       <BillBoard />
-      {/* <div className="px-20 py-4 max-lg:py-2 max-lg:px-1">
-        <Categories />
-      </div> */}
       <ItemCategories />
-      <FeaturedProducts />
+      <BestSelling />
+      <DealOfTheDay />
+      <LatestCollection />
+      <Tesitimonial />
+      {/* <FeaturedProducts /> */}
       <Footer />
       <SideNav />
     </>

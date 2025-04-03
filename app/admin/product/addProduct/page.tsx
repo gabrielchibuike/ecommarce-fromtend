@@ -72,6 +72,7 @@ function page({ params: { addProduct } }: params) {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset,
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
   });
@@ -105,6 +106,13 @@ function page({ params: { addProduct } }: params) {
         description: data.message,
       });
       setIsOpen(true);
+
+      // when form is submitted, reset the form
+      setSelectedFiles([]);
+      setSelectedImage(undefined);
+      setColor([]);
+      setSize([]);
+      reset();
     },
     onError: (error) => {
       setToastData({
@@ -136,8 +144,12 @@ function page({ params: { addProduct } }: params) {
       formData.append("files", file);
     });
 
-    if (selectedFiles!.length === 0)
-      return console.log("Field cannot be empty");
+    if (selectedFiles!.length === 0) {
+      setToastData({
+        description: "image field cannot be empty",
+      });
+      setIsOpen(true);
+    }
 
     await formMutation({ formData });
   };
@@ -412,7 +424,12 @@ function page({ params: { addProduct } }: params) {
                   <div className="flex gap-2 py-4 ">
                     <div>
                       <div className="w-[85px] h-14 bg-zinc-200/40 flex flex-col items-center justify-center">
-                        <div className=" cursor-pointer flex flex-col items-center">
+                        <div
+                          className=" cursor-pointer flex flex-col items-center"
+                          onClick={() => {
+                            styleInput.current?.click();
+                          }}
+                        >
                           <input
                             type="file"
                             multiple
@@ -421,12 +438,7 @@ function page({ params: { addProduct } }: params) {
                             onChange={handleImageChange}
                           />
                           <AiOutlineCamera className="text-xl" />
-                          <div
-                            className=" text-[10px]   font-bold"
-                            onClick={() => {
-                              styleInput.current?.click();
-                            }}
-                          >
+                          <div className=" text-[10px]   font-bold">
                             Select Image
                           </div>
                         </div>

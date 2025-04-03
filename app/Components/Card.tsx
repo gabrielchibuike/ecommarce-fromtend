@@ -10,7 +10,7 @@ function Card({
   return (
     <>
       <div
-        className={`w-[500px] min-h-[300px] bg-zinc-400 p-2 rounded-xl ${additionalClass}`}
+        className={`w-[500px] min-h-[300px] bg-zinc-400 p-2 rounded-lg ${additionalClass}`}
       >
         {children}
       </div>

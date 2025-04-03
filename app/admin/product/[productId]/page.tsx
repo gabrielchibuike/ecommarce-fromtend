@@ -64,7 +64,7 @@ function page({ params }: { params: Promise<{ productId: string }> }) {
                     {item.product_image.map((img, i) => (
                       <div className="w-full h-20  rounded-lg" key={i}>
                         <Image
-                          src={`${domain}/${img}`}
+                          src={img}
                           width={200}
                           height={200}
                           className="object-cover w-full h-16 "
@@ -80,9 +80,7 @@ function page({ params }: { params: Promise<{ productId: string }> }) {
                     <div className="w-full min-h-[300px] bg-zinc-400">
                       <Image
                         src={
-                          previewOneImg
-                            ? `${domain}/${previewOneImg}`
-                            : `${domain}/${item.product_image[0]}`
+                          previewOneImg ? previewOneImg : item.product_image[0]
                         }
                         width={200}
                         height={200}

@@ -4,6 +4,7 @@ import Providers from "./Components/Providers";
 import { AllProvider } from "./GlobalState/Context";
 import ReactQueryProvider from "./GlobalState/ReactQueryProvider";
 import ToastProviderComponent from "./Components/ToastProvider";
+import localFont from "next/font/local";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -17,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className=" font-[poppins]">
+      <body className="font-poppins font-medium">
         <ReactQueryProvider>
           <Providers>
             <AllProvider>
