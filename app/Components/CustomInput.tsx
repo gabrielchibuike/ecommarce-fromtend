@@ -26,7 +26,7 @@ function CustomInput({
       <input
         type={input_type}
         placeholder={placeholder}
-        className={`w-full py-3  px-3  text-xs focus:outline-none  font-semibold rounded-lg border border-zinc-600/20   ${addtional_class}`}
+        className={`w-full py-2  px-3  text-xs focus:outline-none  font-semibold rounded-lg border border-zinc-600/20   ${addtional_class}`}
         {...register}
       />
       {errors && (

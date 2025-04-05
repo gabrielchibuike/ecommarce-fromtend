@@ -19,7 +19,7 @@ export default function Button({
       <button
         type="submit"
         disabled={isSubmitting}
-        className={`px-2 py-2  h-auto rounded-md text-sm font-bold focus:outline-none lg:hover:opacity-60 transition duration-100 ease-linear bg-yellow-600 disabled:opacity-40 text-zinc-50 flex justify-center items-center  ${addtional_class}`}
+        className={`px-2 py-2  h-auto text-sm font-bold focus:outline-none lg: transition duration-100 ease-linear  disabled:opacity-40  flex justify-center items-center  ${addtional_class}`}
         onClick={onclick_event}
         ref={disabled}
       >

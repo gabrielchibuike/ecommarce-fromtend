@@ -49,7 +49,7 @@ function Footer() {
           </div>
           <div className="space-y-1 p-5 max-lg:p-1 max-lg:py-5 ">
             <div className="font-bold text-base text-white">Categories</div>
-            <div className="pt-1 space-y-2 cursor-pointer">
+            <div className="pt-5 space-y-2 cursor-pointer ">
               <div className="text-zinc-300 text-sm font-medium ">
                 Development & IT
               </div>
@@ -66,7 +66,7 @@ function Footer() {
               <div className="text-zinc-300 text-sm font-medium">Educator</div>
             </div>
           </div>
-          <div className="space-y-1 p-5 max-lg:p-1  max-lg:py-5">
+          <div className="space-y-1 pt-5 max-lg:p-1  max-lg:py-5">
             <div className="space-y-2">
               <h1 className="font-bold text-base text-white">
                 Our Information
@@ -79,7 +79,7 @@ function Footer() {
               </div>
             </div>
           </div>
-          <div className="space-y-1 p-5 max-lg:p-1  max-lg:py-5">
+          <div className="space-y-1 pt-5 max-lg:p-1  max-lg:py-5">
             <div className="space-y-2">
               <h1 className="font-bold text-base text-white">Contact Us</h1>
               <div className="text-zinc-300 text-sm font-medium pt-2 flex gap-2 items-center">

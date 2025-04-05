@@ -1,3 +1,4 @@
+"use client";
 import { BsTrash3 } from "react-icons/bs";
 import NavBar from "@/app/Components/NavBar";
 import React from "react";
@@ -6,15 +7,17 @@ import { TbCurrencyNaira } from "react-icons/tb";
 import Button from "@/app/Components/Button";
 import Products from "@/app/Components/Products";
 import SideNav from "@/app/Components/SideNav";
+import useCustomRouter from "@/app/hooks/useCustomRouter";
 
 function page() {
+  const { navigateTo } = useCustomRouter();
   return (
     <>
       <NavBar />
       <SideNav />
-      <div className="w-full  px-20 max-lg:px-2 py-4 max-lg:py-2 flex gap-2 max-lg:flex-col">
+      <div className="w-full  px-20 pt-20 max-lg:px-2 py-4 max-lg:py-2 flex gap-2 max-lg:flex-col">
         <div className="w-[70%] max-lg:w-full h-fit bg-zinc-400/5 px-7 max-lg:px-3 py-4">
-          <div className="w-full border-b border-yellow-600 text-lg font-semibold">
+          <div className="w-full border-b border-primary text-lg font-semibold">
             cart (1)
           </div>
           <div>
@@ -44,7 +47,7 @@ function page() {
             </div>
 
             <div className="flex gap-2 items-center justify-between">
-              <div className="flex gap-1 items-center text-yellow-600 font-semibold text-sm cursor-pointer">
+              <div className="flex gap-1 items-center text-secondary font-semibold text-sm cursor-pointer">
                 <BsTrash3 />
                 <p>Remove</p>
               </div>
@@ -64,9 +67,9 @@ function page() {
             </div>
           </div>
         </div>
-        <div className="w-[27%] max-lg:w-full h-48 bg-zinc-400/5 px-5 py-4">
-          <div className="w-full border-b border-yellow-600 text-sm font-semibold">
-            CART SUMMARY
+        <div className="w-[27%] max-lg:w-full h-fit bg-zinc-400/5 px-5 py-4">
+          <div className="w-full border-b my-3 py-3 border-primary text-sm font-semibold">
+            ORDER SUMMARY
           </div>
           <div className="flex items-center justify-between py-3">
             <div className="font-semibold">SubTotal</div>
@@ -78,12 +81,32 @@ function page() {
             </div>
           </div>
           <p className="text-xs text-zinc-800 font-semibold">
-            Delivery fee is not included yet
+            <div className="space-y-2">
+              <div className="flex justify-between items-center text-base">
+                <p>Items</p>
+                <p>8</p>
+              </div>
+              <div className="flex justify-between items-center text-base">
+                <p>Sub Total</p>
+                <p>323</p>
+              </div>
+              <div className="flex justify-between items-center text-base">
+                <p>Shipping</p>
+                <p>00.0</p>
+              </div>
+            </div>
+            <div className="flex mt-5 justify-between border-t border-primary items-center text-lg">
+              <p>Total</p>
+              <p>00.0</p>
+            </div>
           </p>
           <div className="py-3 mt-3">
             <Button
-              btn_text={"PROCEED TO CHECKOUT"}
-              addtional_class="!w-full"
+              btn_text={"Proceed To Checkout"}
+              addtional_class="!w-full !p-3 !text-md !bg-primary text-primary-foreground"
+              onclick_event={() => {
+                navigateTo("cart/Checkout");
+              }}
             />
           </div>
         </div>

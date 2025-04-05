@@ -10,17 +10,17 @@
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 0 74.7% 15.5%;
+    --primary: 20.9 91.7% 14.1%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    --secondary: 32.1 94.6% 43.7%;
+    --secondary-foreground: 20.9 91.7% 14.1%;
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
+    --border: 32.1 94.6% 43.7%;
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
     --radius: 0.5rem;
@@ -58,6 +58,10 @@
     --chart-5: 340 75% 55%;
   }
 }
+
+/* text-primary {
+  @apply color : #481803;
+} */
 @layer components {
   .scrollbar-thin {
     scrollbar-width: thin;
