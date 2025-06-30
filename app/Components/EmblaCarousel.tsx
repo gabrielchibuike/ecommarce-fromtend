@@ -48,19 +48,19 @@ const EmblaCarousel: React.FC = () => {
   return (
     <div className="w-full  mx-auto ">
       {/* Carousel Container */}
-      <div className="overflow-hidden rounded-lg " ref={emblaRef}>
+      <div className="overflow-hidden  " ref={emblaRef}>
         <div className="flex w-full">
           {slides.map((slide, index) => (
             <div
               key={index}
-              className="flex-[0_0_100%] text-center text-xl w-full"
+              className="flex-[0_0_100%] text-center text-xl w-full "
             >
               <Image
                 src={slide.src}
-                width={500}
-                height={500}
+                width={800}
+                height={800}
                 alt={slide.alt}
-                className="w-full h-auto max-lg:object-cover crisp-edges"
+                className="w-full h-auto  max-lg:h-[250px] "
               />
             </div>
           ))}

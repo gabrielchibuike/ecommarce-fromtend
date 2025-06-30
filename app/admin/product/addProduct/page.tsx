@@ -11,18 +11,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/app/Components/CustomSelect";
-import { Check, ChevronDown } from "lucide-react";
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { AiOutlineCamera } from "react-icons/ai";
 import { IoIosArrowBack } from "react-icons/io";
-import { domain } from "@/api/client";
 import useCustomRouter from "@/app/hooks/useCustomRouter";
-import { useDispatch } from "react-redux";
-import { productPayload } from "@/app/GlobalState/store";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { InputsTypes } from "@/interface/customIputTypes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createProduct } from "@/utils/productFetchApi";
 import { ToastComponent } from "@/app/Components/Toast";
@@ -36,13 +31,8 @@ import {
 } from "@/app/Constants/inputsOptions";
 import { schema } from "@/utils/validationSchema";
 
-type params = {
-  params: {
-    addProduct: string;
-  };
-};
-
-function page({ params: { addProduct } }: params) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function AddProducts() {
   const { navigateTo } = useCustomRouter();
   const styleInput = useRef<HTMLInputElement>(null);
 
@@ -57,8 +47,6 @@ function page({ params: { addProduct } }: params) {
   const [size, setSize] = React.useState<string[]>([]);
 
   const [status, setStatus] = React.useState<string>("");
-
-  const [imgSrc, setImgSrc] = React.useState<string[]>([]);
 
   const queryClient = useQueryClient();
 
@@ -97,7 +85,7 @@ function page({ params: { addProduct } }: params) {
     setSelectedFiles(selectedFiles.filter((ele) => ele !== file));
   }
 
-  const { mutateAsync: formMutation, error } = useMutation({
+  const { mutateAsync: formMutation } = useMutation({
     mutationFn: createProduct,
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
@@ -116,6 +104,7 @@ function page({ params: { addProduct } }: params) {
     },
     onError: (error) => {
       setToastData({
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
         description: error?.message!,
       });
       setIsOpen(true);
@@ -182,7 +171,7 @@ function page({ params: { addProduct } }: params) {
                         input_type="text"
                         placeholder="Product Name"
                         label="Product Name"
-                        name="productName"
+                        // name="productName"
                         register={register("productName")}
                         errors={errors.productName?.message}
                       />
@@ -221,7 +210,7 @@ function page({ params: { addProduct } }: params) {
                         placeholder="Sub category"
                         label="Sub Category"
                         register={register("subCategory")}
-                        name="subCategory"
+                        // name="subCategory"
                         errors={errors.subCategory?.message}
                       />
                     </div>
@@ -232,7 +221,7 @@ function page({ params: { addProduct } }: params) {
                         placeholder="Manufacturer Brand"
                         label="Manufacturer Brand"
                         register={register("manufacturarBrand")}
-                        name="manufacturarBrand"
+                        // name="manufacturarBrand"
                         errors={errors.manufacturarBrand?.message}
                       />
                     </div>
@@ -345,7 +334,7 @@ function page({ params: { addProduct } }: params) {
                         placeholder="Stock Quantity"
                         label="Stock Quantity"
                         register={register("stockQuantity")}
-                        name="stockQuantity"
+                        // name="stockQuantity"
                         errors={errors.stockQuantity?.message}
                       />
                     </div>
@@ -383,7 +372,7 @@ function page({ params: { addProduct } }: params) {
                         placeholder="Price"
                         label="Price"
                         register={register("price")}
-                        name="price"
+                        // name="price"
                         errors={errors.price?.message}
                       />
                     </div>
@@ -394,7 +383,7 @@ function page({ params: { addProduct } }: params) {
                         placeholder="Discount"
                         label="Discount"
                         register={register("discount")}
-                        name="discount"
+                        // name="discount"
                         errors={errors.discount?.message}
                       />
                     </div>
@@ -506,4 +495,4 @@ function page({ params: { addProduct } }: params) {
   );
 }
 
-export default page;
+export default AddProducts;

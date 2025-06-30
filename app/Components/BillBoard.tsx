@@ -5,7 +5,7 @@ import EmblaCarousel from "./EmblaCarousel";
 function BillBoard() {
   return (
     <>
-      <div className=" w-full py-10">
+      <div className=" w-full pt-10">
         <EmblaCarousel />
       </div>
     </>

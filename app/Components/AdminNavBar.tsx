@@ -4,7 +4,6 @@ import React from "react";
 import { AiOutlineAppstore } from "react-icons/ai";
 import CustomInput from "./CustomInput";
 import { HiUser } from "react-icons/hi";
-import { IoIosArrowBack } from "react-icons/io";
 
 function AdminNavBar({ Title }: { Title: string }) {
   return (
@@ -19,7 +18,6 @@ function AdminNavBar({ Title }: { Title: string }) {
           <CustomInput
             placeholder="serach"
             addtional_class="!w-[500px] !hidden"
-            name="search"
             input_type="text"
           />
         </div>

@@ -44,7 +44,7 @@ function CustomTable({ products }: { products: any }) {
     <>
       <div className="overflow-x-auto">
         <table className="min-w-full border border-zinc-300 rounded-lg shadow-md">
-          <thead className="bg-black text-white">
+          <thead className="bg-black text-primary-foreground">
             <tr>
               <th className="px-6 py-3 text-left text-sm font-semibold">
                 Products

@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
 import { AiOutlineInstagram, AiOutlineTwitter } from "react-icons/ai";
-import { BsFacebook, BsFillTelephoneFill, BsSend } from "react-icons/bs";
+import { BsFillTelephoneFill } from "react-icons/bs";
 import { FaFacebookF, FaSnapchatGhost } from "react-icons/fa";
 import { MdOutlineMailOutline } from "react-icons/md";
-import CustomInput from "./CustomInput";
+// import CustomInput from "./CustomInput";
 // import { BsSend } from "react-icons/bs";
 // import { AiOutlineInstagram, AiOutlineTwitter } from "react-icons/ai";
 // import { BsFillTelephoneFill } from "react-icons/bs";

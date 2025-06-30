@@ -11,24 +11,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/app/Components/CustomSelect";
-import { Check, ChevronDown } from "lucide-react";
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineCamera } from "react-icons/ai";
 import { IoIosArrowBack } from "react-icons/io";
 import { domain } from "@/api/client";
 import useCustomRouter from "@/app/hooks/useCustomRouter";
-import { useDispatch, useSelector } from "react-redux";
-import { productPayload } from "@/app/GlobalState/store";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { InputsTypes } from "@/interface/customIputTypes";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import {
-  createProduct,
-  editProduct,
-  fetchSingleProduct,
-} from "@/utils/productFetchApi";
+import { editProduct, fetchSingleProduct } from "@/utils/productFetchApi";
 import Image from "next/image";
 import { CgClose } from "react-icons/cg";
 import {
@@ -39,9 +31,8 @@ import {
 } from "@/app/Constants/inputsOptions";
 import { schema } from "@/utils/validationSchema";
 import { ToastComponent } from "@/app/Components/Toast";
-import { productType } from "@/interface/productType";
 
-function page({ params }: { params: Promise<{ productId: string }> }) {
+function EditProduct({ params }: { params: Promise<{ productId: string }> }) {
   const { productId } = React.use(params);
 
   const { navigateTo } = useCustomRouter();
@@ -70,7 +61,7 @@ function page({ params }: { params: Promise<{ productId: string }> }) {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const { data: productData, isLoading } = useQuery({
+  const { data: productData } = useQuery({
     queryFn: () => fetchSingleProduct(productId),
     queryKey: ["products", { productId }],
   });
@@ -114,7 +105,7 @@ function page({ params }: { params: Promise<{ productId: string }> }) {
       setSize(productData.size);
       setReadSelectedFiles(productData.product_image);
     }
-  }, [productData]);
+  }, [productData, reset]);
 
   type FormValues = z.infer<typeof schema>;
 
@@ -147,6 +138,7 @@ function page({ params }: { params: Promise<{ productId: string }> }) {
     },
     onError: (error) => {
       setToastData({
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
         description: error?.message!,
       });
       setIsOpen(true);
@@ -214,7 +206,6 @@ function page({ params }: { params: Promise<{ productId: string }> }) {
                         input_type="text"
                         placeholder="Product Name"
                         label="Product Name"
-                        name="productName"
                         register={register("productName")}
                         errors={errors.productName?.message}
                       />
@@ -254,7 +245,6 @@ function page({ params }: { params: Promise<{ productId: string }> }) {
                         placeholder="Sub category"
                         label="Sub Category"
                         register={register("subCategory")}
-                        name="subCategory"
                         errors={errors.subCategory?.message}
                       />
                     </div>
@@ -265,7 +255,6 @@ function page({ params }: { params: Promise<{ productId: string }> }) {
                         placeholder="Manufacturer Brand"
                         label="Manufacturer Brand"
                         register={register("manufacturarBrand")}
-                        name="manufacturarBrand"
                         errors={errors.manufacturarBrand?.message}
                       />
                     </div>
@@ -380,7 +369,6 @@ function page({ params }: { params: Promise<{ productId: string }> }) {
                         placeholder="Stock Quantity"
                         label="Stock Quantity"
                         register={register("stockQuantity")}
-                        name="stockQuantity"
                         errors={errors.stockQuantity?.message}
                       />
                     </div>
@@ -419,7 +407,6 @@ function page({ params }: { params: Promise<{ productId: string }> }) {
                         placeholder="Price"
                         label="Price"
                         register={register("price")}
-                        name="price"
                         errors={errors.price?.message}
                       />
                     </div>
@@ -430,7 +417,6 @@ function page({ params }: { params: Promise<{ productId: string }> }) {
                         placeholder="Discount"
                         label="Discount"
                         register={register("discount")}
-                        name="discount"
                         errors={errors.discount?.message}
                       />
                     </div>
@@ -544,4 +530,4 @@ function page({ params }: { params: Promise<{ productId: string }> }) {
   );
 }
 
-export default page;
+export default EditProduct;

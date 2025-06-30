@@ -1,9 +1,6 @@
-import { BsPhoneVibrate } from "react-icons/bs";
-import { BsFillHandbagFill } from "react-icons/bs";
-import { GiRunningShoe } from "react-icons/gi";
-import { GiPoloShirt } from "react-icons/gi";
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Link from "next/link";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import Card from "./Card";
 import Image from "next/image";
 import Button from "./Button";

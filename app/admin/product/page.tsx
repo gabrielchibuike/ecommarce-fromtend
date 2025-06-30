@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import AdminNavBar from "@/app/Components/AdminNavBar";
 import AdminSideNav from "@/app/Components/AdminSideNav";
 import Button from "@/app/Components/Button";
@@ -7,24 +8,16 @@ import CustomTable from "@/app/Components/CustomProductTable";
 import useCustomRouter from "@/app/hooks/useCustomRouter";
 import { fetchProducts } from "@/utils/productFetchApi";
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect } from "react";
 import { IoIosArrowBack, IoIosMenu } from "react-icons/io";
 import { BiMenuAltRight } from "react-icons/bi";
 import { TbLayoutGrid } from "react-icons/tb";
-import { useDispatch } from "react-redux";
-import { productPayload } from "@/app/GlobalState/store";
 import Image from "next/image";
 import Tabs from "@/app/Components/Tabs";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 
-function page() {
+function ProductsPage() {
   const { navigateTo } = useCustomRouter();
-  const {
-    data: products,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
+  const { data: products, isLoading } = useQuery({
     queryFn: () => fetchProducts(),
     queryKey: ["products"],
     staleTime: 1 * 60000,
@@ -32,7 +25,7 @@ function page() {
 
   return (
     <>
-      <div className="flex">
+      <div className="flex ">
         <AdminSideNav link={"/admin/product"} />
         <div className="w-full h-screen bg-zinc-200/40 px-3 max-lg:px-2 py-2">
           <div
@@ -74,7 +67,7 @@ function page() {
                   <div className="flex items-center justify-end py-2 gap-4">
                     <Button
                       btn_text={"Add Product"}
-                      addtional_class="!rounded-lg max-lg:hidden"
+                      addtional_class="!rounded-lg max-lg:hidden !bg-secondary text-primary-foreground"
                       onclick_event={() => {
                         navigateTo("/admin/product/addProduct");
                       }}
@@ -107,4 +100,4 @@ function page() {
   );
 }
 
-export default page;
+export default ProductsPage;

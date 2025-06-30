@@ -9,14 +9,14 @@ import Products from "@/app/Components/Products";
 import SideNav from "@/app/Components/SideNav";
 import useCustomRouter from "@/app/hooks/useCustomRouter";
 
-function page() {
+function Cart() {
   const { navigateTo } = useCustomRouter();
   return (
     <>
       <NavBar />
       <SideNav />
-      <div className="w-full  px-20 pt-20 max-lg:px-2 py-4 max-lg:py-2 flex gap-2 max-lg:flex-col">
-        <div className="w-[70%] max-lg:w-full h-fit bg-zinc-400/5 px-7 max-lg:px-3 py-4">
+      <div className="w-full  px-10 pt-20 max-lg:px-2 py-4 max-lg:py-2 flex gap-2 max-lg:flex-col">
+        <div className="w-full max-lg:w-full h-fit bg-zinc-400/5 px-7 max-lg:px-3 py-4">
           <div className="w-full border-b border-primary text-lg font-semibold">
             cart (1)
           </div>
@@ -67,47 +67,49 @@ function page() {
             </div>
           </div>
         </div>
-        <div className="w-[27%] max-lg:w-full h-fit bg-zinc-400/5 px-5 py-4">
-          <div className="w-full border-b my-3 py-3 border-primary text-sm font-semibold">
-            ORDER SUMMARY
-          </div>
-          <div className="flex items-center justify-between py-3">
-            <div className="font-semibold">SubTotal</div>
-            <div className="flex gap-2">
-              <div className="flex  items-center py-1">
-                <TbCurrencyNaira className="text-lg" />
-                <h2 className="text-lg font-semibold">3000</h2>
+        <div className="w-[600px] max-lg:w-full text-zinc-800">
+          <div className="w-full max-lg:w-full h-fit bg-zinc-400/5  px-5 py-4">
+            <div className="w-full border-b my-3 py-3 border-primary/25 text-sm font-semibold">
+              ORDER SUMMARY
+            </div>
+            <div className="flex items-center justify-between py-3">
+              <div className="font-semibold">SubTotal</div>
+              <div className="flex gap-2">
+                <div className="flex  items-center py-1">
+                  <TbCurrencyNaira className="text-lg" />
+                  <h2 className="text-lg font-semibold">3000</h2>
+                </div>
               </div>
             </div>
-          </div>
-          <p className="text-xs text-zinc-800 font-semibold">
-            <div className="space-y-2">
-              <div className="flex justify-between items-center text-base">
-                <p>Items</p>
-                <p>8</p>
+            <div className="text-sm  ">
+              <div className="space-y-2">
+                <div className="flex justify-between items-center ">
+                  <p>Items</p>
+                  <p>8</p>
+                </div>
+                <div className="flex justify-between items-center ">
+                  <p>Sub Total</p>
+                  <p>323</p>
+                </div>
+                <div className="flex justify-between items-center ">
+                  <p>Shipping</p>
+                  <p>00.0</p>
+                </div>
               </div>
-              <div className="flex justify-between items-center text-base">
-                <p>Sub Total</p>
-                <p>323</p>
-              </div>
-              <div className="flex justify-between items-center text-base">
-                <p>Shipping</p>
+              <div className="flex mt-5 justify-between  items-center text-lg">
+                <p>Total</p>
                 <p>00.0</p>
               </div>
             </div>
-            <div className="flex mt-5 justify-between border-t border-primary items-center text-lg">
-              <p>Total</p>
-              <p>00.0</p>
+            <div className="py-3 mt-3">
+              <Button
+                btn_text={"Proceed To Checkout"}
+                addtional_class="!w-full !p-3 !text-md !bg-primary text-primary-foreground"
+                onclick_event={() => {
+                  navigateTo("/Checkout");
+                }}
+              />
             </div>
-          </p>
-          <div className="py-3 mt-3">
-            <Button
-              btn_text={"Proceed To Checkout"}
-              addtional_class="!w-full !p-3 !text-md !bg-primary text-primary-foreground"
-              onclick_event={() => {
-                navigateTo("cart/Checkout");
-              }}
-            />
           </div>
         </div>
       </div>
@@ -118,4 +120,4 @@ function page() {
   );
 }
 
-export default page;
+export default Cart;

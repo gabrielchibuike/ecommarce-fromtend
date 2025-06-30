@@ -78,7 +78,7 @@ function AdminSideNav({ link }: { link?: string }) {
                   <div>
                     <div className="">
                       <div
-                        className={`w-full font-bold rounded-xl text-sm  flex hover:bg-zinc-100/10 flex-row py-2 items-center gap-3   ${
+                        className={`w-full font-bold rounded-xl text-primary-foreground text-sm  flex hover:bg-zinc-100/10 flex-row py-2 items-center gap-3   ${
                           link === loop.navigate ? "bg-zinc-100/10 " : ""
                         }`}
                       >

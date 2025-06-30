@@ -1,10 +1,10 @@
+/* eslint-disable react/react-in-jsx-scope */
 import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "./Components/Providers";
 import { AllProvider } from "./GlobalState/Context";
 import ReactQueryProvider from "./GlobalState/ReactQueryProvider";
 import ToastProviderComponent from "./Components/ToastProvider";
-import localFont from "next/font/local";
 
 export const metadata: Metadata = {
   title: "Home",

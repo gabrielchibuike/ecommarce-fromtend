@@ -1,58 +1,58 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillStar } from "react-icons/ai";
 import React, { useEffect, useRef } from "react";
 import Card from "./Card";
 import { useQuery } from "@tanstack/react-query";
-import { fetchProducts } from "@/utils/productFetchApi";
+import { fetchFeatureProducts, fetchProducts } from "@/utils/productFetchApi";
 import Image from "next/image";
 import Link from "next/link";
 
 function BestSelling() {
   const tabRef = useRef<HTMLDivElement[]>([]);
 
-  const filterBy = [
-    {
-      name: "All",
-    },
-    {
-      name: "Men",
-    },
-    {
-      name: "Women",
-    },
-    {
-      name: "Accessories",
-    },
-  ];
+  // console.log(fetchTokenpayload);
+  // const filterBy = [
+  //   {
+  //     name: "All",
+  //   },
+  //   {
+  //     name: "Men",
+  //   },
+  //   {
+  //     name: "Women",
+  //   },
+  //   {
+  //     name: "Accessories",
+  //   },
+  // ];
 
-  const {
-    data: products,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryFn: () => fetchProducts(),
-    queryKey: ["products"],
-    staleTime: 1 * 60000,
+  const { data: products, isLoading } = useQuery({
+    queryFn: () => fetchFeatureProducts(),
+    queryKey: ["fetchProducts"],
+    staleTime: 60 * 1000, // 1 minute cache
   });
 
-  function handleSwitch(index: number) {
-    tabRef.current.forEach((ele, _) => {
-      ele.classList.remove("bg-primary");
-      ele.classList.replace("text-primary-foreground", "text-black");
-    });
-    tabRef.current[index].classList.add("bg-primary");
-    tabRef.current[index].classList.add("text-primary-foreground");
-  }
+  console.log(products);
 
-  useEffect(() => {
-    tabRef.current.forEach((ele, _) => {
-      ele.classList.remove("bg-primary");
-      ele.classList.replace("text-primary-foreground", "text-black");
-    });
-    tabRef.current[0].classList.add("bg-primary");
-    tabRef.current[0].classList.add("text-primary-foreground");
-  }, []);
+  // function handleSwitch(index: number) {
+  //   tabRef.current.forEach((ele, _) => {
+  //     ele.classList.remove("bg-primary");
+  //     ele.classList.replace("text-primary-foreground", "text-black");
+  //   });
+  //   tabRef.current[index].classList.add("bg-primary");
+  //   tabRef.current[index].classList.add("text-primary-foreground");
+  // }
+
+  // useEffect(() => {
+  //   tabRef.current.forEach((ele, _) => {
+  //     ele.classList.remove("bg-primary");
+  //     ele.classList.replace("text-primary-foreground", "text-black");
+  //   });
+  //   tabRef.current[0].classList.add("bg-primary");
+  //   tabRef.current[0].classList.add("text-primary-foreground");
+  // }, []);
   return (
     <>
       <div>
@@ -66,7 +66,7 @@ function BestSelling() {
                 Our Top Selling Products
               </h1>
             </div>
-            <div className="flex gap-3 max-lg:hidden">
+            {/* <div className="flex gap-3 max-lg:hidden">
               {filterBy.map((ele, index) => (
                 <div
                   className=" p-2 h-6 rounded-md bg-primary text-sm text-primary-foreground cursor-pointer flex items-center"
@@ -79,7 +79,7 @@ function BestSelling() {
                   <div>{ele.name}</div>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
           <div className="pt-10 max-lg:pt-3">
             <div>
