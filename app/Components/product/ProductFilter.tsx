@@ -104,7 +104,7 @@ export default function ProductFilter({
       clearFilters({
         main_category: `${gender.replace("m", "M")}'s wear`,
         product_category: productCategory,
-        sub_category: subCategory.toLowerCase() || "",
+        sub_category: subCategory,
         color: [],
         size: [],
         price_max: 100,
@@ -122,9 +122,34 @@ export default function ProductFilter({
     staleTime: 0,
   });
 
-  // Extract products and total from response
+  // Fetch search products
+  // const {
+  //   data: searchData,
+  //   isLoading: isLoadingSearch,
+  //   error: searchError,
+  // } = useQuery({
+  //   queryKey: ["searchProducts", subCategory],
+  //   queryFn: () => searchProduct(subCategory, 1, 10), // Match page and limit with filtered data
+  //   enabled: subCategory.length > 0,
+  //   staleTime: 0,
+  //   refetchOnWindowFocus: false,
+  // });
+
+  // // Determine active data based on search state
+  // const isSearching = subCategory.length > 0;
+  // console.log("isSearching:", isSearching, "searchQuery:", subCategory);
+  // const activeData = isSearching ? searchData : filteredData;
+  // const isLoading = isSearching ? isLoadingSearch : isLoadingFiltered;
+  // const error = isSearching ? searchError : filteredError;
+  // const products = activeData?.products || [];
+  // const total = activeData?.total || 0;
+
+  // console.log(products, "products");
+
   const products = data?.products;
-  const total = data?.total || 0;
+  const total = data?.total;
+
+  console.log(products);
 
   // Log errors for debugging
   useEffect(() => {

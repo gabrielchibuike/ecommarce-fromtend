@@ -37,7 +37,7 @@ function NavBar() {
   const { data, isLoading } = useQuery({
     queryKey: ["searchProducts", searchQuery],
     queryFn: () => searchProduct(searchQuery),
-    enabled: searchQuery ? searchQuery.length > 0 : undefined,
+    enabled: !!searchQuery,
     staleTime: 0,
     refetchOnWindowFocus: false,
   });
@@ -71,25 +71,19 @@ function NavBar() {
     }, 300);
   }
 
-  const slugify = (text: string): string => {
-    console.log(text, "text");
-    // text.replace("'s wear", "").toLowerCase();
+  // const slugify = (text: string): string => {
+  //   const slug = text.toLowerCase().replace("'s wear", "");
 
-    // if (!text || typeof text !== "string") return "default";
-    // let slug = text
-    //   .toLowerCase()
-    //   .replace(/\s+/g, "-")
-    //   .replace(/&/g, "and")
-    //   .replace(/[^\w-]+/g, "");
+  //   return slug;
+  // };
 
-    // if (slug.match(/^mens?-wear$/)) {
-    //   slug = "men";
-    // }
-
-    // return slug.replace(/-+/g, "-").replace(/^-|-$/g, "");
-
-    return text;
-  };
+  const slugify = (text: string) =>
+    text
+      .toLowerCase()
+      // .replace(/\s+/g, "-")
+      // .replace(/&/g, "and")
+      // .replace(/[^\w-]+/g, "")
+      .replace("'s wear", "");
 
   return (
     <>
@@ -158,9 +152,11 @@ function NavBar() {
                           key={product.id}
                           className="p-2 hover:bg-gray-100 cursor-pointer text-sm font-normal rounded-md"
                           onClick={() => {
+                            console.log(product.main_category, "slugfy");
+
                             const categorySlug = slugify(product.main_category);
                             route.push(
-                              `/categories/${categorySlug}/${product.product_category}/${product.product_name}`
+                              `/categories/${categorySlug}/${product.product_category}/${product.sub_category}`
                             );
                           }}
                         >
