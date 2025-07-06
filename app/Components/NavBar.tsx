@@ -28,10 +28,6 @@ function NavBar() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const dispatch = useDispatch();
-  // const filters = useSelector((state: any) => state.filters);
-
-  // Debounce the search term
-  // const [debouncedSearch] = useDebounce(filters.searchQuery, 300);
 
   // Fetch search results
   const { data, isLoading } = useQuery({
@@ -88,7 +84,7 @@ function NavBar() {
   return (
     <>
       <nav className="w-full h-fit flex flex-col max-lg:h-12 bg-white fixed right-0 left-0 z-50">
-        <ul className="w-full h-16 flex items-center px-10 max-lg:px-1 justify-between bg-white fixed right-0 left-0 z-50">
+        <ul className="w-full h-16 flex items-center px-10 max-md:px-4 max-lg: justify-between bg-white fixed right-0 left-0 z-50">
           <div className="flex items-center gap-1">
             <Image
               alt=""

@@ -34,7 +34,7 @@ function SignIn() {
     resolver: zodResolver(loginSchema),
   });
 
-  const { mutateAsync: createAccMutation } = useMutation({
+  const { mutateAsync: createAccMutation, isPending } = useMutation({
     mutationFn: login,
     onSuccess: (data) => {
       // console.log(data.data);
@@ -101,7 +101,7 @@ function SignIn() {
                 label="Password"
                 register={register("password")}
                 errors={errors.password?.message}
-                input_type="text"
+                input_type="password"
               />
 
               <div>
@@ -116,6 +116,8 @@ function SignIn() {
               <Button
                 btn_text={"SignIn"}
                 addtional_class="!w-full !bg-primary !py-4 !text-primary-foreground"
+                isSubmitting={isPending}
+                disabled={isPending}
               />
             </form>
             <div className="flex items-center justify-center gap-3  ">

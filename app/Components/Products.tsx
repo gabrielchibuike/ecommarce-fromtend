@@ -45,15 +45,15 @@ function Products({
               {isLoading ? (
                 <div>Loading....</div>
               ) : (
-                <div className="w-full min-h-[400px] px-4">
-                  <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-4">
+                <div className="w-full min-h-[400px] ">
+                  <div className="w-full grid grid-cols-4  max-lg:grid-cols-2 max-xl:grid-cols-3 gap-x- max-md:gap-x-3 max-lg:gap-x-6 gap-y-10 ">
                     {products.map((product: any, index: number) => (
                       <Link
                         href={`/${product._id}`}
                         key={index}
                         className="block"
                       >
-                        <Card additionalClass="!w-[250px]  !min-h-[250px] max-lg:!min-h-[140px] !p-0 max-lg:!w-[250px] flex-shrink-0 !bg-transparent !relative ">
+                        <Card additionalClass="!w-[250px] !min-h-[250px] max-md:!min-h-[80px] max-lg:!min-h-[100px] !p-0 max-lg:!w-full flex-shrink-0 !bg-transparent !relative ">
                           <div className="w-16 h-7 bg-white text-green-800 absolute top-2 left-2 flex items-center justify-center text-xs">
                             50% off
                           </div>
@@ -61,7 +61,7 @@ function Products({
                           <div className="p-1 rounded-full bg-white absolute top-2 right-2 cursor-pointer">
                             <AiOutlineHeart className="text-xl" />
                           </div>
-                          <div className="w-full h-[230px] max-lg:h-[300px] flex bg-zinc-300/30">
+                          <div className="w-full h-[230px] max-md:!min-h-[80px] max-lg:!min-h-[100px]  flex bg-zinc-300/30">
                             <Image
                               src={product.product_image[0]}
                               alt=""
@@ -94,16 +94,6 @@ function Products({
                   </div>
                 </div>
               )}
-              {/* <div className="flex gap-3 justify-center">
-                {pigenation.map((ele, index) => (
-                  <div
-                    className="bg-primary w-12 flex justify-center cursor-pointer items-center h-10 text-white"
-                    key={index}
-                  >
-                    {ele.item}
-                  </div>
-                ))}
-              </div> */}
             </div>
           )}
         </div>

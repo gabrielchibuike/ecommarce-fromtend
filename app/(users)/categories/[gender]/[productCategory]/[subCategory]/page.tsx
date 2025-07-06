@@ -32,7 +32,7 @@ function ProductSlug({
             {gender} &gt; {productCategory} &gt; {subCategory}
           </h1>
         </div>
-        <div className=" w-full px-11 max-lg:px-1">
+        <div className=" w-full px-11 max-sm:px-1 max-md:px-5  max-lg:">
           <ProductFilter
             gender={gender}
             productCategory={productCategory}
